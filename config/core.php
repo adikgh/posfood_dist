@@ -63,7 +63,7 @@
 
    // setting
    $site = mysqli_fetch_array(db::query("select * from `site` where id = 1"));
-   $ver = 3.001;
+   $ver = 3.002;
 
    // 
    $site_set = [
@@ -88,12 +88,14 @@
    if (isset($_SESSION['lang'])) $lang = $_SESSION['lang'];
 
    // company
-   $company = 1; 
+   $company = 1;
    if (@$user_right['company_id']) $company = $user_right['company_id'];
    else {
       if (isset($_GET['company'])) if ($_GET['company'] == 1 || $_GET['company'] == 2) $_SESSION['company'] = $_GET['company'];
       if (isset($_SESSION['company'])) $branch = $_SESSION['company'];
    }
+   $company_d = mysqli_fetch_array(db::query("select * from `company` where id = '$company'"));
+
 
    // branch
    $branch = 0; if (@$user_right['branch_id']) $branch = $user_right['branch_id'];
